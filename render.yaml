@@ -1,0 +1,29 @@
+# Render Blueprint: one web service runs the Express API and serves the React app.
+# Create a free MongoDB Atlas cluster, then add its connection string as MONGODB_URI.
+services:
+  - type: web
+    name: queue-desk
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      # The in-memory MongoDB used by tests and local dev downloads a binary on install.
+      # The hosted site uses Atlas, so skip that download.
+      - key: MONGOMS_DISABLE_POSTINSTALL
+        value: "1"
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_URL
+        sync: false
+      # Demo deployment only: shows the password reset link on screen (no email service).
+      # Remove this before using the app with real users.
+      - key: DEMO_SHOW_RESET_LINK
+        value: "true"

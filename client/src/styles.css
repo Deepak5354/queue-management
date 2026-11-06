@@ -1,0 +1,423 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces and text */
+  --color-paper: #f5f6fb;
+  --color-sheet: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  --color-line: #e5e8f0;
+  --color-line-strong: #cbd2e1;
+  --color-hover: #f1f3f9;
+
+  /* Brand */
+  --color-primary: #4f46e5;
+  --color-primary-strong: #4338ca;
+  --color-primary-soft: #eef0ff;
+
+  /* Status */
+  --color-accent: #e11d48; /* danger / cancelled */
+  --color-accent-soft: #fff1f3;
+  --color-success: #059669;
+  --color-success-soft: #e8f8f1;
+  --color-warn: #d97706;
+  --color-warn-soft: #fff6e5;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 12px 28px -8px rgb(15 23 42 / 0.14);
+}
+
+@layer base {
+  :root {
+    --skel-a: #eceff6;
+    --skel-b: #f6f7fb;
+  }
+
+  /* Dark palette: overrides the same tokens, so every component follows. */
+  .dark {
+    color-scheme: dark;
+    --color-paper: #0a0e1a;
+    --color-sheet: #121829;
+    --color-ink: #e7ebf5;
+    --color-muted: #8f9bb6;
+    --color-line: #222a40;
+    --color-line-strong: #323c58;
+    --color-hover: #1a2136;
+    --color-primary: #818cf8;
+    --color-primary-strong: #6366f1;
+    --color-primary-soft: rgb(129 140 248 / 0.16);
+    --color-accent: #fb7185;
+    --color-accent-soft: rgb(251 113 133 / 0.12);
+    --color-success: #34d399;
+    --color-success-soft: rgb(52 211 153 / 0.12);
+    --color-warn: #fbbf24;
+    --color-warn-soft: rgb(251 191 36 / 0.12);
+    --color-slate-50: #1a2136;
+    --color-slate-100: #1f2740;
+    --color-slate-200: #2a334f;
+    --color-slate-300: #3a4566;
+    --color-slate-400: #7683a3;
+    --color-slate-500: #96a2bf;
+    --color-slate-600: #b1bbd2;
+    --color-slate-700: #cbd3e6;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.35), 0 6px 20px -6px rgb(0 0 0 / 0.5);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.4), 0 14px 30px -8px rgb(0 0 0 / 0.65);
+    --skel-a: #1a2136;
+    --skel-b: #222a40;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* ── Form fields ───────────────────────────────────────────── */
+  .field {
+    width: 100%;
+    min-height: 2.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-sheet);
+    color: var(--color-ink);
+    padding: 0.55rem 0.9rem;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .field:hover {
+    border-color: var(--color-line-strong);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgb(79 70 229 / 0.14);
+  }
+
+  .field::placeholder {
+    color: #94a3b8;
+  }
+
+  .field:-webkit-autofill {
+    -webkit-text-fill-color: var(--color-ink);
+    box-shadow: inset 0 0 0 1000px var(--color-sheet);
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--color-ink) 80%, var(--color-sheet));
+  }
+
+  /* ── Buttons ───────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    border-radius: 0.75rem;
+    padding: 0 1.1rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease,
+      box-shadow 150ms ease, transform 150ms ease;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .btn-primary {
+    background: #4f46e5;
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgb(79 70 229 / 0.35), 0 6px 14px -6px rgb(79 70 229 / 0.55);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: #4338ca;
+  }
+
+  .btn-danger {
+    background: #e11d48;
+    color: #ffffff;
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background: #be123c;
+  }
+
+  .btn-line {
+    border: 1px solid var(--color-line);
+    background: var(--color-sheet);
+    color: var(--color-ink);
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+  }
+
+  .btn-line:hover:not(:disabled) {
+    border-color: var(--color-line-strong);
+    background: var(--color-hover);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    color: var(--color-ink);
+    background: var(--color-hover);
+  }
+
+  .btn-lg {
+    min-height: 3.25rem;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.625rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-sheet);
+    color: color-mix(in srgb, var(--color-ink) 70%, var(--color-sheet));
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+
+  .icon-btn:hover:not(:disabled) {
+    border-color: var(--color-line-strong);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .icon-btn.danger:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  .icon-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+
+  /* ── Surfaces ──────────────────────────────────────────────── */
+  .panel {
+    border-radius: 1rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-sheet);
+    box-shadow: var(--shadow-card);
+  }
+
+  a.panel,
+  .panel-link {
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  }
+
+  a.panel:hover,
+  .panel-link:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-primary) 40%, transparent);
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* The "now serving" card: a ticket with a gradient face when someone is up. */
+  .ticket {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-sheet);
+    box-shadow: var(--shadow-card);
+  }
+
+  .ticket.is-live {
+    border-color: transparent;
+    color: #ffffff;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgb(167 139 250 / 0.55) 0%, transparent 55%),
+      linear-gradient(135deg, #4f46e5 0%, #4338ca 55%, #3730a3 100%);
+    box-shadow: 0 18px 40px -16px rgb(79 70 229 / 0.65);
+  }
+
+  .ticket.is-live::after {
+    content: "";
+    position: absolute;
+    right: -2.5rem;
+    top: 50%;
+    width: 5rem;
+    height: 5rem;
+    margin-top: -2.5rem;
+    border-radius: 9999px;
+    background: var(--color-paper);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 9999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  .chip-success {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+  }
+
+  .chip-danger {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  .chip-muted {
+    background: var(--color-hover);
+    color: var(--color-muted);
+  }
+
+  .pulse-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+
+  .skeleton {
+    border-radius: 0.75rem;
+    background: linear-gradient(90deg, var(--skel-a) 25%, var(--skel-b) 50%, var(--skel-a) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 360ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .icon-btn,
+  a.panel,
+  .panel-link,
+  .field {
+    transition: none;
+  }
+  .pulse-dot,
+  .skeleton,
+  .rise {
+    animation: none;
+  }
+}
+
+/* Invalid fields: red border and ring, set from aria-invalid. */
+.field[aria-invalid="true"] {
+  border-color: var(--color-accent);
+}
+
+.field[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 4px rgb(225 29 72 / 0.14);
+}
+
+/* Theme toggle icons: show the icon for the mode you would switch to. */
+.theme-sun {
+  display: none;
+}
+
+.dark .theme-sun {
+  display: block;
+}
+
+.dark .theme-moon {
+  display: none;
+}
+
+/* Labels for the theme toggle: name the mode you would switch to. */
+.theme-label-dark {
+  display: none;
+}
+
+.dark .theme-label-dark {
+  display: inline;
+}
+
+.dark .theme-label-light {
+  display: none;
+}

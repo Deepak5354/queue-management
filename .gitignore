@@ -1,0 +1,16 @@
+# Secrets: never commit these
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules
+client/dist
+server/dist
+*.tsbuildinfo
+
+# Local files
+.idea
+.DS_Store
+*.log
+.tanstack
