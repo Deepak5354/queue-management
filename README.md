@@ -2,6 +2,26 @@
 
 A queue management app for busy counters, built with the **MERN stack** (MongoDB, Express, React, Node). A manager signs in, opens named queues, and issues a numbered token to everyone who joins. The person at the top can be assigned for service with one click, the rest of the line can be reordered or cancelled, and an insights dashboard keeps the wait honest.
 
+## Live Demo
+
+**Live Application:** [https://queue-desk.onrender.com](https://queue-desk.onrender.com)
+
+The application is deployed using Render. On the free hosting tier, the service may sleep after a period of inactivity, so the first request afterward may take approximately 30–60 seconds to load.
+
+## Application Screenshots
+
+### 1. Login Page
+![Queue Desk Login Page](screenshots/login.png)
+
+### 2. Manager Dashboard
+![Queue Desk Manager Dashboard](screenshots/dashboard.png)
+
+### 3. Create Queue
+![Queue Desk Create Queue](screenshots/create-queue.png)
+
+### 4. Insights and Analytics
+![Queue Desk Insights Dashboard](screenshots/insights.png)
+
 ## Features
 
 1. **Sign in** with email and password. Signed-in managers can change their password, and a forgotten one can be reset from a one-time link.
